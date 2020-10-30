@@ -1,0 +1,117 @@
+.app {
+    text-align: center;
+    background: linear-gradient(90deg, rgba(3,0,46,1) 0%, rgba(9,9,121,1) 35%, rgba(150,156,242,1) 100%);  color: aliceblue;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.registerContainer{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -450px;
+    width: 800px;
+    height: 420px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.registerContainerPicture{
+    background-color: white;
+    height: 100%;
+    width: 55%;
+}
+
+.registerContainerText{
+    background-color: white;
+    height: 100%;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.registerPicture {
+    margin-top: 50px;
+    width: 420px;
+    height: 330px;
+}
+
+.TextHeader{
+    margin-top: 10px;
+    color: #fc451a;
+    font-family: "Comic Sans MS";
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.inputArea{
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 35px;
+    color: #323232;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputText{
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    border: solid white;
+    width: 250px;
+    height: 25px;
+    border-radius: 15px;
+    padding-left: 20px;
+    outline: none;
+}
+
+.buttonRegister{
+    background-color: #fc451a;
+    color: white;
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: 80px;
+    width: 200px;
+    border: solid white;
+    cursor: pointer;
+    outline: none;
+}
+
+.buttonBack{
+    text-align: left;
+    background-color: white;
+    color: #fc451a;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-left: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.buttonBack:hover{
+    color: #c32900;
+}
+
+.buttonRegister:hover{
+    background-color: #c32900;
+}

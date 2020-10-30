@@ -1,0 +1,145 @@
+.app {
+    margin-left: 150px;
+}
+
+.profilePage{
+    background-color: white;
+    width:1000px;
+    height: 450px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+}
+
+.details{
+    background-color: #d6e3f6;
+    width:400px;
+    height: 350px;
+    border-radius: 15%;
+    font-family: Arial;
+    font-weight: bold;
+    padding-top: 40px;
+    padding-left: 30px;
+}
+
+.detailsTitle{
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.detailsTab{
+    margin-top: 10px;
+    color: #323232;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.button{
+    background-color: #01189d;
+    color: white;
+    font-family: "Comic Sans MS";
+    font-size: 16px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 80px;
+    width: 200px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.button:hover{
+    background-color: #00166d;
+}
+
+.buttons{
+    margin-top: 40px;
+}
+
+.logout{
+    margin-top: 50px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.logout:hover{
+    background-color: #00166d;
+    padding: 1px;
+}
+
+.modal{
+    padding-left: 30px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.TextHeader{
+    margin-top: 20px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+    color: #01189d;
+    font-family: "Comic Sans MS";
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.inputArea{
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 35px;
+    color: #323232;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputText{
+    font-family: Arial;
+    font-weight: bold;
+    background-color: white;
+    border: none;
+    width: 250px;
+    height: 25px;
+    border-radius: 15px;
+    padding-left: 20px;
+    outline: none;
+}
+
+.buttonRegister{
+    background-color: #01189d;
+    color: white;
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: 80px;
+    width: 200px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.buttonRegister:hover{
+    background-color: #00166d;
+}
+
+.close{
+    margin-top: 30px;
+    margin-left: -30px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.close:hover{
+    background-color: #00166d;
+    padding: 1px;
+}

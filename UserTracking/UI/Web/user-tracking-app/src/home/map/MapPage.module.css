@@ -1,0 +1,135 @@
+.app {
+    margin-left: 150px;
+}
+
+.mapPage{
+    width:1000px;
+    height: 470px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonsArea{
+    height: 100%;
+    width: 450px;
+}
+
+.mapArea{
+    height: 100%;
+    width: 550px;
+}
+
+.selectUser{
+    margin-top: 10px;
+    font-family: "Comic Sans MS";
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+}
+
+.searchEmail{
+    margin-top: 5px;
+    display:flex;
+    flex-direction: row;
+}
+
+.email{
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    border: solid white;
+    width: 180px;
+    height: 20px;
+    border-radius: 15px;
+    padding-left: 20px;
+    outline: none;
+    margin-top: -5px;
+    margin-left: 21px;
+}
+
+.search{
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
+    margin-left: 10px;
+    margin-top: -2px;
+}
+
+.closeModal{
+    margin-top: -20px;
+    margin-left: -20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.calendar{
+    width: 300px;
+    height: 300px;
+}
+
+.calendarContainer{
+    width: 300px;
+    height: 330px;
+    margin-top: 30px;
+}
+
+.selectDate{
+    margin-top: 10px;
+    font-family: "Comic Sans MS";
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+}
+
+.date1{
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    border: solid white;
+    width: 180px;
+    height: 20px;
+    border-radius: 15px;
+    padding-left: 20px;
+    outline: none;
+    margin-top: -5px;
+    margin-left: 20px;
+}
+
+.date2{
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    border: solid white;
+    width: 180px;
+    height: 20px;
+    border-radius: 15px;
+    padding-left: 20px;
+    outline: none;
+    margin-top: -5px;
+    margin-left: 35px;
+}
+
+.finishSearch{
+    width: 200px;
+    height: 150px;
+    margin-top: -115px;
+    margin-left: 275px;
+    margin-left: 275px;
+    cursor:pointer;
+}
+
+.mapLoc{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.mapLocVisible{
+    visibility: hidden;
+}
+
+
