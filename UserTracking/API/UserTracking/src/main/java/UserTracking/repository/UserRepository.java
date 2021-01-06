@@ -1,6 +1,7 @@
 package UserTracking.repository;
 
 import UserTracking.entity.User;
+import UserTracking.security.JwtTokenUtil;
 import UserTracking.service.FirebaseInitializer;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
@@ -19,6 +20,9 @@ public class UserRepository {
 
     @Autowired
     FirebaseInitializer db;
+
+    @Autowired
+    private JwtTokenUtil jwtToken;
 
     public List<User> findAll() throws ExecutionException, InterruptedException {
         List<User> userList = new ArrayList<>();
@@ -56,9 +60,8 @@ public class UserRepository {
         return user;
     }
 
-    public String delete(String id) {
+    public void delete(String id) {
         db.getFirebase().collection("User").document(id).delete();
-        return "Deleted user with id: " + id;
     }
 
     public User login(String email, String password) throws ExecutionException, InterruptedException {
@@ -68,7 +71,8 @@ public class UserRepository {
         ApiFuture<QuerySnapshot> querySnapshot = userCR.get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
             user = doc.toObject(User.class);
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            String pass=jwtToken.getPassFromToken(user.getTokenID());
+            if (user.getEmail().equals(email) && pass.equals(password)) {
                 found = true;
                 break;
             }

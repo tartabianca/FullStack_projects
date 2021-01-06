@@ -9,21 +9,13 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    let user = {tokeID: "", firstName: "", lastName: "", address: "", email: ""};
 
     const isValidEmail = () => {
         return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     };
 
-    const handleSubmit = () => {
-        localStorage.setItem("email", email);
-    };
-
     const verify = () => {
         if (!isValidEmail()) alert("Email has to be valid!");
-        else {
-            handleSubmit();
-        }
     };
 
     const login = async () => {
@@ -33,13 +25,13 @@ function Login() {
             password: password
         };
         let res = {
-            user: {tokenID: "", firstname: "", lastname: "", email: "", password: ""}
+            user: {}
         };
 
         verify();
 
         await axios
-            .post(urlConstants.apiUrl + "/user/login", data)
+            .post(urlConstants.apiUrl + "/users/login", data)
             .then((response) => {
                 res = response.data;
                 if(res==="" && isValidEmail()) {
@@ -54,15 +46,7 @@ function Login() {
             .catch((err) => {
                 console.log(err);
             });
-        localStorage.setItem("userId", res.tokenID);
-        localStorage.setItem("firstName", res.firstname);
-        localStorage.setItem("lastName", res.lastname);
-        user.id = res.tokenID;
-        user.firstName = res.firstname;
-        user.lastName = res.lastname;
-        user.email = email;
-        user.password = password;
-
+        localStorage.setItem("userID", res.tokenID);
         if(ok)
             window.location="/profile";
 

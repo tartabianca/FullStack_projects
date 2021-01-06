@@ -54,9 +54,8 @@ public class LocationRepository {
         return location;
     }
 
-    public String delete(int id) {
+    public void delete(int id) {
         db.getFirebase().collection("Location").document(String.valueOf(id)).delete();
-        return "Deleted locaton with id: " + id;
     }
 
     public List<Location> filter(Date startDate, Date endDate, String userId) throws ExecutionException, InterruptedException {

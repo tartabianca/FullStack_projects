@@ -3,45 +3,47 @@ package UserTracking.controller;
 import UserTracking.dto.UserDTO;
 import UserTracking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getAllUsers")
-    public List<UserDTO> getAllUsers() throws ExecutionException, InterruptedException {
-        return userService.getAllUsers();
+    @GetMapping()
+    public ResponseEntity<List<UserDTO>> getAllUsers() throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/me")
-    public UserDTO getCurrentUser(@RequestParam("tokenID") String id) throws ExecutionException, InterruptedException {
-        return userService.getCurrentUser(id);
+    public ResponseEntity<UserDTO> getCurrentUser(@RequestParam("tokenID") String id) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(userService.getCurrentUser(id));
     }
 
     @PostMapping("/register")
-    public UserDTO register(@RequestBody() UserDTO userDTO) throws Exception {
-        return userService.register(userDTO);
+    public ResponseEntity<UserDTO> register(@RequestBody() UserDTO userDTO) throws Exception {
+        return ResponseEntity.ok(userService.register(userDTO));
     }
 
     @PostMapping("/login")
-    public UserDTO login(@RequestBody() UserDTO userDTO)  throws ExecutionException, InterruptedException {
-        return userService.login(userDTO);
+    public ResponseEntity<UserDTO> login(@RequestBody() UserDTO userDTO)  throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(userService.login(userDTO));
     }
 
-    @PutMapping("/updateUser")
-    public UserDTO updateUser(@RequestBody() UserDTO user) throws ExecutionException, InterruptedException {
-        return userService.updateUser(user);
+    @PutMapping("/update")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody() UserDTO user) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
-    @DeleteMapping("/deleteUser")
-    public String deleteUserById(@RequestParam("tokenID") String id) {
-        return userService.deleteUser(id);
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteUserById(@RequestParam("tokenID") String id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

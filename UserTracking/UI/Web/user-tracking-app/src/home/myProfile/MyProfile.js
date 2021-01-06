@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "./MyProfile.module.css";
 import {Header} from "../header/Header";
 import axios from "axios";
@@ -9,11 +9,33 @@ import Modal from "./modal/Modal";
 
 function MyProfile() {
 
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        const currentUser = async () => {
+            const data = localStorage.getItem("userID");
+            let res = {
+                user: {}
+            };
+            await axios
+                .get(urlConstants.apiUrl + "/users/me?tokenID=" + data)
+                .then((response) => {
+                    res = response.data;
+                    setUser(res);
+                    setFirstName(res.firstname);
+                    setLastName(res.lastname);
+                    setEmail(res.email);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        currentUser();
+    }, []);
+
     const deleteAccount = async () => {
-        const tokenID = localStorage.getItem("userId")
-
-        await axios.delete(urlConstants.apiUrl + "/user/deleteUser?tokenID=" + tokenID)
-
+        const tokenID = localStorage.getItem("userID")
+        await axios.delete(urlConstants.apiUrl + "/users/delete?tokenID=" + tokenID)
         localStorage.clear();
         window.location = "/";
     };
@@ -29,24 +51,21 @@ function MyProfile() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const user = {
-        tokenID: localStorage.getItem('userId'),
-        firstname: firstName,
-        lastname: lastName,
-        email: email,
-        password: password,
-    }
-
     const updateAccount = async () => {
         updateModal.current.openModal();
     };
 
     const finishUpdate = async () => {
-        await axios.put(urlConstants.apiUrl + "/user/updateUser",user)
-        localStorage.setItem("firstName", firstName);
-        localStorage.setItem("lastName", lastName);
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
+        const data = {
+
+            tokenID: user.tokenID,
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            password: password
+
+        };
+        await axios.put(urlConstants.apiUrl + "/users/update",data)
         window.location="/profile"
     };
 
@@ -63,13 +82,13 @@ function MyProfile() {
                         User details
                     </div>
                     <div className={styles.detailsTab}>
-                        First name: &nbsp; {localStorage.getItem("firstName")}
+                        First name: &nbsp; {user.firstname}
                     </div>
                     <div className={styles.detailsTab}>
-                        Last name: &nbsp; {localStorage.getItem("lastName")}
+                        Last name: &nbsp; {user.lastname}
                     </div>
                     <div className={styles.detailsTab}>
-                        Email: &nbsp; {localStorage.getItem("email")}
+                        Email: &nbsp; {user.email}
                     </div>
                     <div className={styles.buttons}>
                         <button type="button" className={styles.button}
@@ -90,23 +109,29 @@ function MyProfile() {
                         <div className={styles.inputArea}>
                             First name:
                             <input type="text" name="firstName" autoComplete="off" className={styles.inputText}
-                                   onChange={(e) => setFirstName(e.target.value)}>
+                                   onChange={(e) => setFirstName(e.target.value)}
+                                   placeholder={user.firstname}>
                             </input>
                         </div>
                         <div className={styles.inputArea}>
                             Last name:
                             <input type="text" name="lastName" autoComplete="off" className={styles.inputText}
-                                   onChange={(e) => setLastName(e.target.value)}/>
+                                   onChange={(e) => setLastName(e.target.value)}
+                                   placeholder={user.lastname}
+                            />
                         </div>
                         <div className={styles.inputArea}>
                             Email:
                             <input type="text" name="email" autoComplete="off" className={styles.inputText}
-                                   onChange={(e) => setEmail(e.target.value)}/>
+                                   onChange={(e) => setEmail(e.target.value)}
+                                   placeholder={user.email}
+                            />
                         </div>
                         <div className={styles.inputArea}>
                             Password:
                             <input type="password" name="password" className={styles.inputText}
-                                   onChange={(e) => setPassword(e.target.value)}/>
+                                   onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
                         <div className={styles.inputArea}>
                             Confirm password:

@@ -24,7 +24,7 @@ export default function Register({ navigation }) {
             password: user.password
         };
         if(user.firstName && user.lastName && user.email && user.password) {
-            axios.post( urlConstants.apiUrl + "/user/register", data).then(response => response.data)
+            axios.post( urlConstants.apiUrl + "/users/register", data).then(response => response.data)
                 .catch((err) => {
                     console.log(err);
                 });

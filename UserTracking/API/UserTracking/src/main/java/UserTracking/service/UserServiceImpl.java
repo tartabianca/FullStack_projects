@@ -65,8 +65,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.entityToDto(updatedUser);
     }
 
-    public String deleteUser(String id) {
-        String message = userRepository.delete(id);
-        return message;
+    public void deleteUser(String id) {
+        userRepository.delete(id);
     }
 }

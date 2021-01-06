@@ -46,14 +46,15 @@ public class LocationServiceImpl implements LocationService {
     }
 
 
-    public LocationDTO updateLocation(LocationDTO locationDTO) {
+    public LocationDTO updateLocation(int id,LocationDTO locationDTO) {
+        locationDTO.setId(id);
         Location updatedLocation = locationRepository.update(locationMapper.dtoToEntity(locationDTO));
         return locationMapper.entityToDto(updatedLocation);
     }
 
-    public String deleteLocation(int id) {
-        String message = locationRepository.delete(id);
-        return message;
+    public void deleteLocation(int id) {
+        locationRepository.delete(id);
+
     }
 
     public List<LocationDTO> filter(Date startDate, Date endDate, String userId) throws ExecutionException, InterruptedException{

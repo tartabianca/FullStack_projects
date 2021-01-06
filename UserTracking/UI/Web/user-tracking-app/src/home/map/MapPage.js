@@ -1,43 +1,35 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./MapPage.module.css";
 import {Header} from "../header/Header";
 import axios from "axios";
 import urlConstants from "../../helpers/urlConstants";
-import search from "./search.svg"
-import Modal from "./modal/Modal";
-import picture2 from "../myProfile/close.png";
-import UserList from "./cards/UserList";
 import {Card, Calendar} from 'react-rainbow-components';
 import ok from "./ok.png"
 import finish from "./finish.png"
 import GoogleMapReact from 'google-map-react';
 import mapLoc from "./mapLoc.jpg"
+import Dropdown from "react-dropdown"
 
 function MapPage() {
 
     const [email, setEmail] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-
-    const updateModal = useRef();
-    const searchUsers = async () => {
-        updateModal.current.openModal();
-    };
-    const closeModal = async () => {
-        updateModal.current.close();
-    };
-
     const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(false);
+    const [usersEmail, setUsersEmails] = useState([])
+    const [locs, setLocs] = useState([])
+
     useEffect(() => {
-        const fetchCards = async () => {
-            setLoading(true);
-            let result = await axios.get(urlConstants.apiUrl + "/user/getAllUsers")
+        const getUsers = async () => {
+            let result = await axios.get(urlConstants.apiUrl + "/users")
             let user = result.data;
+            let emails=[];
+            for(let i=0;i<user.length;i++)
+                emails.push(user[i].email.toString())
+            setUsersEmails(emails);
             setUsers(user);
-            setLoading(false);
         }
-        fetchCards();
+        getUsers();
     }, []);
 
     const [state, setState] = useState([])
@@ -67,15 +59,14 @@ function MapPage() {
         }
     }
 
-    const [locs, setLocs] = useState([])
     const searchOnMap = async () => {
         if (email && startDate && endDate) {
             let userID;
-            for (let i = 0; i < users.length; i++)
+            for (let i = 0; i < users.length; i++) {
                 if (users[i].email === email)
                     userID = users[i].tokenID
-
-            let result = await axios.post(urlConstants.apiUrl + "/location/filter?startDate=" + startDate + "&endDate=" + endDate + "&userID=" + userID)
+            }
+            let result = await axios.get(urlConstants.apiUrl + "/locations/filter?startDate=" + startDate + "&endDate=" + endDate + "&userID=" + userID)
             let locations = result.data;
             setLocs(locations);
         } else {
@@ -107,11 +98,17 @@ function MapPage() {
             <div className={styles.mapPage}>
                 <div className={styles.buttonsArea}>
                     <div className={styles.selectUser}>
-                        User email:
+                        User email: &nbsp; &nbsp; &nbsp;
                         <div className={styles.searchEmail}>
-                            <input type="text" name="email" className={styles.email}
-                                   onChange={(e) => setEmail(e.target.value)}/>
-                            <img className={styles.search} src={search} alt="search" onClick={searchUsers}/>
+                            {(usersEmail.length>0) ?
+                            <Dropdown
+                                className={styles.dropdown}
+                                options={usersEmail}
+                                onChange={(e) => setEmail(e.value.toString())}
+                                placeholder="Select user  ▼"
+                            >
+                            </Dropdown>
+                                : null}
                         </div>
                     </div>
                     <div className={styles.selectDate}>
@@ -136,18 +133,11 @@ function MapPage() {
                         </Card>
                     </div>
                     <img className={styles.finishSearch} src={finish} alt="close" onClick={searchOnMap}/>
-                    <Modal ref={updateModal}>
-                        <img className={styles.closeModal} src={picture2} alt="close" onClick={closeModal}/>
-                        <UserList
-                            users={users}
-                            loading={loading}
-                        />
-                    </Modal>
                 </div>
                 <div className={styles.mapArea}>
                     <div id="a1" style={{height: '100%', width: '100%'}}>
                         <GoogleMapReact
-                            //bootstrapURLKeys={{ key: "" }}
+                            bootstrapURLKeys={{ key: "AIzaSyD488tM6svNIFaNsYhKUW3tcB6ewNnwdmw" }}
                             defaultCenter={props.center}
                             defaultZoom={props.zoom}
                         >
@@ -157,28 +147,25 @@ function MapPage() {
                                     lat={locs[0].latitude}
                                     lng={locs[0].longitude}
                                 />
-                            ) : (
-                                <Marker
-                                    lat={0}
-                                    lng={0}
-                                />
-                            )}
+                            ) :
+                                null
+                            }
                             {locs.length>1 ? (
                                 <Marker
                                     lat={locs[1].latitude}
                                     lng={locs[1].longitude}
                                 />
-                            ) : (
-                                <Marker/>
-                            )}
+                            ) :
+                                null
+                            }
                             {locs.length>2 ? (
                                 <Marker
                                     lat={locs[2].latitude}
                                     lng={locs[2].longitude}
                                 />
-                            ) : (
-                                <Marker/>
-                            )}
+                            ) :
+                                null
+                            }
                         </GoogleMapReact>
                     </div>
                 </div>

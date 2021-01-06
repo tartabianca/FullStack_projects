@@ -14,7 +14,6 @@ public class User {
     private String firstname;
     private String lastname;
     private String email;
-    private String password;
     private List<Role> roles = new ArrayList<>();
 
     public User() {
@@ -24,7 +23,6 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.password = password;
     }
 
     public String getTokenID() {
@@ -57,14 +55,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Role> getRoles() {

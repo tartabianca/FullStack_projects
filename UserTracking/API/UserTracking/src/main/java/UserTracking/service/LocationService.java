@@ -15,9 +15,9 @@ public interface LocationService {
 
     LocationDTO createNewLocation(LocationDTO locationDTO) throws Exception;
 
-    LocationDTO updateLocation(LocationDTO locationDTO);
+    LocationDTO updateLocation(int id, LocationDTO locationDTO);
 
-    String deleteLocation(int id);
+    void deleteLocation(int id);
 
     List<LocationDTO> filter(Date startDate, Date endDate, String userId) throws ExecutionException, InterruptedException;
 

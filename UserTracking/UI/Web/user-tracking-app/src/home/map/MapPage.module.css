@@ -37,13 +37,11 @@
 .email{
     font-family: Arial;
     font-weight: bold;
-    background-color: #e0e0e0;
-    border: solid white;
+    border: 1px solid black;
     width: 180px;
     height: 20px;
     border-radius: 15px;
     padding-left: 20px;
-    outline: none;
     margin-top: -5px;
     margin-left: 21px;
 }
@@ -130,6 +128,11 @@
 
 .mapLocVisible{
     visibility: hidden;
+}
+
+.dropdown{
+    cursor: pointer;
+    margin-top: -6px;
 }
 
 

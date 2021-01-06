@@ -17,6 +17,6 @@ public interface UserService {
 
     UserDTO updateUser(UserDTO userDTO) throws ExecutionException, InterruptedException;
 
-    String deleteUser(String id);
+    void deleteUser(String id);
 
 }

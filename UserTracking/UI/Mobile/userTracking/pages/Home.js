@@ -58,7 +58,7 @@ export default function Home() {
             userID: tokenID
         };
 
-        axios.post( urlConstants.apiUrl + "/location/newLocation", location).then(response => response.data)
+        axios.post( urlConstants.apiUrl + "/locations/newLocation", location).then(response => response.data)
                 .catch((err) => {
                     console.log(err);
                 });

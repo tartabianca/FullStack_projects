@@ -72,7 +72,7 @@ export default function Login({ navigation }) {
             user: {tokenID: "", firstname: "", lastname: "", email: "", password: ""}
         };
         if(data.isValidUser && data.isValidPassword) {
-            axios.post( urlConstants.apiUrl + "/user/login", dta).then(response => response.data)
+            axios.post( urlConstants.apiUrl + "/users/login", dta).then(response => response.data)
                 .then((data) => {
                     res = data;
                     if (res == "") {

@@ -12,38 +12,64 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
+    let user = {tokeID: "", firstName: "", lastName: "", address: "", email: ""};
 
     const isValidEmail = () => {
         return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     };
 
+    const handleRegister = () => {
+        localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+    };
 
     const verify = () => {
         if (!isValidEmail()) alert("Email has to be valid!");
         else if (password !== confirmPass || password==="") {
             alert("Passwords do not match!");
+        } else {
+            handleRegister();
         }
     };
 
     const register = async () => {
+        let ok = false;
         const data = {
             firstname: firstName,
             lastname: lastName,
             email: email,
             password: password
         };
+        let res = {
+            user: {tokenID: "", firstName: "", lastName: "", email: "", password: ""}
+        };
 
         verify();
-        if (isValidEmail() && password === confirmPass && password!=="") {
+
         await axios
             .post(urlConstants.apiUrl + "/users/register", data)
-            .then(() => {
-                window.location="/";
+            .then((response) => {
+                res = response.data;
+                if (isValidEmail() && password === confirmPass && password!=="") {
+                    ok = true;
+                }
             })
             .catch((err) => {
                 console.log(err);
             });
-    }}
+        localStorage.setItem("userId", res.tokenID);
+        user.id = res.tokenID;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+        user.password = password;
+
+        if(ok)
+            window.location="/";
+
+    };
 
     return (
         <div className={styles.app}>
